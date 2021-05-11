@@ -1,3 +1,5 @@
+from exceptions import NegativeNumber
+
 
 class Tickets:
     def __init__(self):
