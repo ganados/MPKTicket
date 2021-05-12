@@ -66,6 +66,3 @@ class Tickets:
         stream_out = ""
         for i in range(1, self.get_number_of_ticket_types() + 1):
             stream_out += str(self.get_ticket_name(i)) + ": " + str(self.get_ticket_amount(i)) + "\n"
-
-
-# TODO: dodawanie biletow
