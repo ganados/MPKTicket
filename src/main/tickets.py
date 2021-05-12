@@ -1,4 +1,6 @@
 from exceptions import NegativeNumber
+from exceptions import NotANumber
+import constants
 
 
 class Tickets:
@@ -48,6 +50,25 @@ class Tickets:
         for i in range(1, self.get_number_of_ticket_types() + 1):
             print(self.get_ticket_name(i), ": ", self.get_ticket_amount(i))
 
+    def increase_tickets_number(self, value):
+        if not value.strip().isdigit():
+            raise NotANumber()
+        value = int(value)
+        if value < 0:
+            raise NegativeNumber()
+        self.__tickets_number = value
+
+    def set_zero_tickets_amount(self):
+        for i in range(1, self.get_number_of_ticket_types() + 1):
+            self.__tickets_amount[i] = 0
+
+    def add_ticket(self, chosen_ticket):
+        if chosen_ticket in self.__tickets_ids.keys():
+            self.__tickets_amount[chosen_ticket] += self.__tickets_number
+        else:
+            print(constants.WRONG_CHOSEN_TICKET)
+        self.__tickets_number = 1
+
 # for display in the window
     def chosen_tickets_cost(self):
         cost = 0.0
@@ -66,3 +87,14 @@ class Tickets:
         stream_out = ""
         for i in range(1, self.get_number_of_ticket_types() + 1):
             stream_out += str(self.get_ticket_name(i)) + ": " + str(self.get_ticket_amount(i)) + "\n"
+        return stream_out
+
+    def chosen_tickets_cost_in_window(self):
+        cost = 0.0
+        for i in range(1, self.get_number_of_ticket_types() + 1):
+            cost += self.get_ticket_price(i) * self.get_ticket_amount(i)
+        #        print("Tickets cost: ", cost)
+        return str(cost) + "0zł"
+
+
+tickets = Tickets()
