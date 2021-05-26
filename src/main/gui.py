@@ -1,3 +1,4 @@
+import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from coins import *
@@ -78,16 +79,32 @@ class Gui:
         window_ticket_pay.title("Płatność")
         mainframe = ttk.Frame(window_ticket_pay)
         mainframe.grid(column=1, row=1, sticky=(N, W, E, S))
-        i = 0
+        i = 2
         for value in constants.VALID_COIN_VALUES_FOR_LOOP:
             ttk.Button(mainframe, width=20, text="Wrzuć " + str(value) + "zł", command=lambda coin_value=value: entered_coins_storage
                        .add_coin(Coin(coin_value))).grid(column=2, row=i)
             i += 1
-        ttk.Label(mainframe, text="Ile monet chcesz wrzucić? (domyślnie 1)").grid(column=2, row=14)
+        ttk.Label(mainframe, text="Ile monet chcesz wrzucić? (domyślnie 1)").grid(column=2, row=i+1)
         enter_number = Entry(mainframe)
-        enter_number.grid(column=2, row=15)
-        ttk.Button(mainframe, width=20, text="Wprowadz", command=lambda: entered_coins_storage.increase_coins_number(enter_number.get())).grid(column=2, row=16)
-        ttk.Button(mainframe, width=20, text="Wprowadzona kwota", command=lambda: self.print_money(entered_coins_storage)).grid(column=2, row=17)
+        enter_number.grid(column=2, row=i+2)
+        ttk.Button(mainframe, width=20, text="Wprowadz", command=lambda: entered_coins_storage.increase_coins_number(enter_number.get())).grid(column=2, row=i+3)
+        ttk.Button(mainframe, width=20, text="Wprowadzona kwota", command=lambda: self.print_money(entered_coins_storage)).grid(column=2, row=i+4)
+        ttk.Button(mainframe, width=20, text="Zapłać", command=lambda: self.pay()).grid(column=2, row=i+5)
+
+    @staticmethod
+    def pay():
+        window_pay = Tk()
+        window_pay.title("Zapłacono")
+        mainframe = ttk.Frame(window_pay)
+        mainframe.grid(column=1, row=1, sticky=(N, W, E, S))
+
+        ttk.Label(mainframe, text="Zapłacono: ").grid(column=1, row=1)
+        ttk.Label(mainframe, text=entered_coins_storage.stored_money_in_window()).grid(column=2, row=1)
+        ttk.Label(mainframe, text="Wartość biletów: ").grid(column=1, row=2)
+        ttk.Label(mainframe, text=tickets.chosen_tickets_cost_in_window()).grid(column=2, row=2)
+        ttk.Label(mainframe, text="Reszta: ").grid(column=1, row=3)
+        ttk.Label(mainframe, text=coin_storage.rest_to_released(entered_coins_storage, tickets.chosen_tickets_cost())).grid(column=2, row=3)
+
 
     @staticmethod
     def print_money(entered_coins):

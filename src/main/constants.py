@@ -5,7 +5,7 @@ VALID_COIN_VALUES_FOR_LOOP = [0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 10
 
 NOT_ENOUGH = "Nie wystarczająca kwota"
 CANT_THROW_REST = "Tylko odliczona kwota"
-NOT_REST = "Brak reszty"
+NO_REST = "Brak reszty"
 
 WRONG_CHOSEN_TICKET = "Nie ma takiego biletu"
 
