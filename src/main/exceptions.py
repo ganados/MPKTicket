@@ -1,4 +1,3 @@
-import constants
 
 
 class NegativeNumber(Exception):
@@ -11,12 +10,6 @@ class NotANumber(Exception):
     def __init__(self):
         super().__init__("This is not a number")
     #   print("constants.NOT_A_NUMBER")
-
-
-class NotAInteger(Exception):
-    def __init__(self):
-        super().__init__("This is not a Integer")
-    #   print(constants.NOT_A_INTEGER)
 
 
 class NotValidCoinValue(Exception):

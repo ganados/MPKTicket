@@ -1,6 +1,5 @@
 from exceptions import NotValidCoinValue
 from exceptions import ItsNotACoin
-from exceptions import EmptyStorage
 
 from tickets import *
 import constants
@@ -19,6 +18,7 @@ class Coin:
 
 
 class CoinStorage:
+    '''Main class for Ticket machine'''
     def __init__(self):
         self.__nof_entered_coins = 1
         self.__stored_coins = {key: 0 for key in constants.VALID_COIN_VALUES}
@@ -62,6 +62,7 @@ class CoinStorage:
         return money
 
     def initial_value_of_coin_storage(self, nof_coins, coins_values_list=constants.VALID_COIN_VALUES):
+        '''Set initial coin storage of ticket machine'''
         for key in coins_values_list:
             self.set_value(key, nof_coins)
 
@@ -73,6 +74,7 @@ class CoinStorage:
         return out_stream
 
     def stored_money_in_window(self):
+        '''print stored money sum in window'''
         if not self.storage_is_empty():
             return "0.0"
         money = 0.0
@@ -82,6 +84,7 @@ class CoinStorage:
         return str(money / 100.0)
 
     def update_stored_coins(self, entered_coins):
+        '''update number of stored coins'''
         for key in self.__stored_coins.keys():
             self.__stored_coins[key] += entered_coins.stored_coin_by_value(key)
 
@@ -99,7 +102,7 @@ class CoinStorage:
 
         elif rest > self.stored_money():
             tickets.set_zero_tickets_amount()
-            return entered_coins.print_coins_in_window() + " Nie mogę wydać reszty"
+            return entered_coins.print_coins_in_window() + " " + constants.CANT_THROW_REST
 
         else:
             rest_storage = CoinStorage()

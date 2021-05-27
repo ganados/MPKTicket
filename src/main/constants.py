@@ -1,6 +1,8 @@
+"""Valid coins values for Coin class"""
 VALID_COIN_VALUES = {1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000}
 VALID_COIN_VALUES_REVERSE = {5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1}
 
+"""Valid coins for loop in GUI, and reverse for rest returning"""
 VALID_COIN_VALUES_FOR_LOOP = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000]
 VALID_COIN_VALUES_FOR_LOOP_REVERSE = [5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1]
 
@@ -12,4 +14,3 @@ NO_REST = "Brak reszty"
 WRONG_CHOSEN_TICKET = "Nie ma takiego biletu"
 
 NOT_A_NUMBER = "To nie jest liczba"
-NOT_A_INTEGER = "To nie jest liczba całkowita"

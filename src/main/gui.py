@@ -1,4 +1,3 @@
-import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from coins import *
@@ -114,5 +113,3 @@ class Gui:
         ttk.Label(mainframe, text=(entered_coins.stored_money_in_window()+"zł"), font=("Times New Roman", "14")).grid(column=1, row=0)
 
         ttk.Button(mainframe, text="Zamknij", command=lambda: window_print_money.destroy()).grid(column=1, row=2)
-
-# TODO: Obsluga platnosci, wysw

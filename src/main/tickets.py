@@ -47,11 +47,13 @@ class Tickets:
         self.__tickets_amount[key] = value
 
     def chosen_tickets(self):
+        '''Printing chosen tickets'''
         for i in range(1, self.get_number_of_ticket_types() + 1):
             print(self.get_ticket_name(i), ": ", self.get_ticket_amount(i))
 
     def increase_tickets_number(self, value):
-        if not value.strip().isdigit():
+        '''Increase tickets number to input to machine'''
+        if not value.strip()[1:].isdigit():
             raise NotANumber()
         value = int(value)
         if value < 0:
@@ -59,10 +61,12 @@ class Tickets:
         self.__tickets_number = value
 
     def set_zero_tickets_amount(self):
+        '''Delete all tickets'''
         for i in range(1, self.get_number_of_ticket_types() + 1):
             self.__tickets_amount[i] = 0
 
     def add_ticket(self, chosen_ticket):
+        '''Add tickets to machine'''
         if chosen_ticket in self.__tickets_ids.keys():
             self.__tickets_amount[chosen_ticket] += self.__tickets_number
         else:
@@ -71,6 +75,7 @@ class Tickets:
 
 # for display in the window
     def chosen_tickets_cost(self):
+        '''Calculate chosen tickets cost'''
         cost = 0.0
         for i in range(1, self.get_number_of_ticket_types() + 1):
             cost += self.get_ticket_price(i) * self.get_ticket_amount(i)
@@ -78,18 +83,21 @@ class Tickets:
         return cost
 
     def print_tickets_in_window(self):
+        '''For printing all tickets in gui'''
         stream_out = ""
         for i in range(1, self.get_number_of_ticket_types() + 1):
             stream_out += str(self.get_ticket_name(i)) + " " + str(self.get_ticket_price(i)) + "0zł\n"
         return stream_out
 
     def chosen_tickets_in_window(self):
+        '''For printing chosen tickets in gui'''
         stream_out = ""
         for i in range(1, self.get_number_of_ticket_types() + 1):
             stream_out += str(self.get_ticket_name(i)) + ": " + str(self.get_ticket_amount(i)) + "\n"
         return stream_out
 
     def chosen_tickets_cost_in_window(self):
+        '''Chosen tickets cost in window'''
         cost = 0.0
         for i in range(1, self.get_number_of_ticket_types() + 1):
             cost += self.get_ticket_price(i) * self.get_ticket_amount(i)
