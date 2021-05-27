@@ -9,8 +9,8 @@ import constants
 class Coin:
 
     def __init__(self, value):
-        if float(value) in constants.VALID_COIN_VALUES:
-            self.__value = float(value)
+        if value in constants.VALID_COIN_VALUES:
+            self.__value = value
         else:
             raise NotValidCoinValue()
 
@@ -57,7 +57,7 @@ class CoinStorage:
             return 0.0
         money = 0.0
         for key, value in self.__stored_coins.items():
-            money += float(key) * float(value)
+            money += key * value
 
         return money
 
@@ -68,7 +68,8 @@ class CoinStorage:
     def print_coins_in_window(self):
         out_stream = ""
         for i in constants.VALID_COIN_VALUES:
-            out_stream += str(i) + " " + str(self.__stored_coins[i]) + "\n"
+            if self.__stored_coins[i] != 0:
+                out_stream += str(i / 100.0) + "zł x " + str(self.__stored_coins[i]) + "\n"
         return out_stream
 
     def stored_money_in_window(self):
@@ -76,8 +77,9 @@ class CoinStorage:
             return "0.0"
         money = 0.0
         for key, value in self.__stored_coins.items():
-            money += key * value
-        return str(money)
+            if value != 0:
+                money += key * value
+        return str(money / 100.0)
 
     def update_stored_coins(self, entered_coins):
         for key in self.__stored_coins.keys():
@@ -97,27 +99,29 @@ class CoinStorage:
 
         elif rest > self.stored_money():
             tickets.set_zero_tickets_amount()
-            return entered_coins.stored_money_in_window() + " Nie mogę wydać reszty"
+            return entered_coins.print_coins_in_window() + " Nie mogę wydać reszty"
 
         else:
             rest_storage = CoinStorage()
-            temp = rest
-            while rest_storage.stored_money() < rest:
-                for i in constants.VALID_COIN_VALUES_REVERSE:
-                    nof_coins = 0
-                    if temp % i == 0:
-                        nof_coins += temp / i
-                        temp /= i
-                        rest_storage.set_value(i, nof_coins)
-                        print(rest_storage.stored_money())
+            while rest > 0:
+                n = 0
+                for i in constants.VALID_COIN_VALUES_FOR_LOOP_REVERSE:
+                    if rest >= i > n:
+                        n = i
+                nof_coins = 0
+                while rest >= n != 0:
+                    rest -= n
+                    nof_coins += 1
+                if n != 0:
+                    rest_storage.set_value(n, rest_storage.__stored_coins[n] + nof_coins)
             tickets.set_zero_tickets_amount()
 
             for key, value in entered_coins_storage.__stored_coins.items():
-                coins_update = coin_storage.__stored_coins.get(key) - entered_coins_storage.__stored_coins.get(key)
+                coins_update = coin_storage.__stored_coins.get(key) + (value - rest_storage.__stored_coins.get(key))
                 coin_storage.set_value(key, coins_update)
-                entered_coins.initial_value_of_coin_storage(0)
+            entered_coins.initial_value_of_coin_storage(0)
 
-            return rest_storage.stored_money_in_window()
+            return rest_storage.print_coins_in_window()
 
 
 coin_storage = CoinStorage()

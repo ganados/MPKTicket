@@ -81,7 +81,7 @@ class Gui:
         mainframe.grid(column=1, row=1, sticky=(N, W, E, S))
         i = 2
         for value in constants.VALID_COIN_VALUES_FOR_LOOP:
-            ttk.Button(mainframe, width=20, text="Wrzuć " + str(value) + "zł", command=lambda coin_value=value: entered_coins_storage
+            ttk.Button(mainframe, width=20, text="Wrzuć " + str(value / 100.0) + "zł", command=lambda coin_value=value: entered_coins_storage
                        .add_coin(Coin(coin_value))).grid(column=2, row=i)
             i += 1
         ttk.Label(mainframe, text="Ile monet chcesz wrzucić? (domyślnie 1)").grid(column=2, row=i+1)
@@ -99,12 +99,11 @@ class Gui:
         mainframe.grid(column=1, row=1, sticky=(N, W, E, S))
 
         ttk.Label(mainframe, text="Zapłacono: ").grid(column=1, row=1)
-        ttk.Label(mainframe, text=entered_coins_storage.stored_money_in_window()).grid(column=2, row=1)
+        ttk.Label(mainframe, text=entered_coins_storage.stored_money_in_window() + "zł").grid(column=2, row=1)
         ttk.Label(mainframe, text="Wartość biletów: ").grid(column=1, row=2)
         ttk.Label(mainframe, text=tickets.chosen_tickets_cost_in_window()).grid(column=2, row=2)
         ttk.Label(mainframe, text="Reszta: ").grid(column=1, row=3)
         ttk.Label(mainframe, text=coin_storage.rest_to_released(entered_coins_storage, tickets.chosen_tickets_cost())).grid(column=2, row=3)
-
 
     @staticmethod
     def print_money(entered_coins):

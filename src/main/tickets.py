@@ -15,12 +15,12 @@ class Tickets:
             6: "60 min normalny"
         }
         self.__tickets_price = {
-            1: 2.0,
-            2: 3.0,
-            3: 3.5,
-            4: 4.5,
-            5: 5.0,
-            6: 6.5
+            1: 200,
+            2: 300,
+            3: 350,
+            4: 450,
+            5: 500,
+            6: 650
         }
         self.__tickets_amount = {
             1: 0,
@@ -94,7 +94,7 @@ class Tickets:
         for i in range(1, self.get_number_of_ticket_types() + 1):
             cost += self.get_ticket_price(i) * self.get_ticket_amount(i)
         #        print("Tickets cost: ", cost)
-        return str(cost) + "0zł"
+        return str(cost / 100.0) + "0zł"
 
 
 tickets = Tickets()
